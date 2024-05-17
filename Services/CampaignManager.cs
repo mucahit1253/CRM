@@ -26,11 +26,12 @@ namespace Services
 
 
 
-        public Campaign CreateOneCampaign(Campaign campaign)
+        public CampaignDto CreateOneCampaign(CampaignDtoForInsertion campaignDto)
         {
-            _manager.Campaign.CreateOneCampaign(campaign);
+            var entity = _mapper.Map<Campaign>(campaignDto);
+            _manager.Campaign.CreateOneCampaign(entity);
             _manager.Save();
-            return campaign;
+            return _mapper.Map<CampaignDto>(entity);
         }
 
         public void DeleteOneCampaign(int id, bool trackChanhes)
@@ -50,12 +51,28 @@ namespace Services
             return _mapper.Map<IEnumerable<CampaignDto>>(campaigns);
         }
 
-        public Campaign GetOneCampaignById(int id, bool trackChanhes)
+        public CampaignDto GetOneCampaignById(int id, bool trackChanhes)
         {
             var campaign= _manager.Campaign.GetOneCampaingById(id, trackChanhes);
             if (campaign is null)
                 throw new CampaingNotFoundException(id);
-            return campaign;
+            return _mapper.Map<CampaignDto>(campaign);
+        }
+
+        public (CampaignDtoForUpdate campaignDtoForUpdate, Campaign campaign) GetOneCampaignForPatch(int id, bool trackChanges)
+        {
+            var campaign = _manager.Campaign.GetOneCampaingById(id, trackChanges);
+            if (campaign is null)
+                throw new CampaingNotFoundException(id);
+            var campaignDtoForUpdate=_mapper.Map<CampaignDtoForUpdate>(campaign);
+            return (campaignDtoForUpdate,campaign);
+
+        }
+
+        public void SaveChangesForPatch(CampaignDtoForUpdate campaignDtoForUpdate, Campaign campaign)
+        {
+            _mapper.Map(campaignDtoForUpdate, campaign);
+            _manager.Save();
         }
 
         public void UpdateOneCampaign(int id, 

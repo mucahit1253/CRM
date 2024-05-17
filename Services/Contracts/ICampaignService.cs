@@ -11,10 +11,13 @@ namespace Services.Contracts
     public interface ICampaignService
     {
         IEnumerable<CampaignDto> GetAllCampaign(bool trackChanhes);
-        Campaign GetOneCampaignById(int id, bool trackChanhes);
-        Campaign CreateOneCampaign(Campaign campaign);
+        CampaignDto GetOneCampaignById(int id, bool trackChanhes);
+        CampaignDto CreateOneCampaign(CampaignDtoForInsertion campaign);
         void UpdateOneCampaign(int id, CampaignDtoForUpdate campaignDto, bool trackChanges);
         void DeleteOneCampaign(int id, bool trackChanhes);
+        (CampaignDtoForUpdate campaignDtoForUpdate,Campaign campaign) GetOneCampaignForPatch(int id, bool trackChanges);
+
+        void SaveChangesForPatch(CampaignDtoForUpdate campaignDtoForUpdate, Campaign campaign);
 
     }
 }
