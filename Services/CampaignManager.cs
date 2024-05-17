@@ -44,9 +44,10 @@ namespace Services
             _manager.Save();
         }
 
-        public IEnumerable<Campaign> GetAllCampaign(bool trackChanhes)
+        public IEnumerable<CampaignDto> GetAllCampaign(bool trackChanhes)
         {
-            return _manager.Campaign.GetAllCampaing(trackChanhes);
+            var campaigns= _manager.Campaign.GetAllCampaing(trackChanhes);
+            return _mapper.Map<IEnumerable<CampaignDto>>(campaigns);
         }
 
         public Campaign GetOneCampaignById(int id, bool trackChanhes)

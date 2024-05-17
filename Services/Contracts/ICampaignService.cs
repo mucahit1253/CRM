@@ -10,7 +10,7 @@ namespace Services.Contracts
 {
     public interface ICampaignService
     {
-        IEnumerable<Campaign> GetAllCampaign(bool trackChanhes);
+        IEnumerable<CampaignDto> GetAllCampaign(bool trackChanhes);
         Campaign GetOneCampaignById(int id, bool trackChanhes);
         Campaign CreateOneCampaign(Campaign campaign);
         void UpdateOneCampaign(int id, CampaignDtoForUpdate campaignDto, bool trackChanges);
