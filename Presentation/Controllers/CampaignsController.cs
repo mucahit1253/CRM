@@ -45,13 +45,15 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateOneCampaign([FromBody] Campaign campaign)
+        public IActionResult CreateOneCampaign([FromBody] CampaignDtoForInsertion campaignDto)
         {
             
-                if (campaign is null)
+            if (campaignDto is null)
                     return BadRequest();//400
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
 
-                _manager.CampaignService.CreateOneCampaign(campaign);
+               var campaign= _manager.CampaignService.CreateOneCampaign(campaignDto);
 
                 return StatusCode(201, campaign);
             
@@ -67,9 +69,11 @@ namespace Presentation.Controllers
         {
 
             
-                if (campaignDto is null)
+            if (campaignDto is null)
                     return BadRequest();
-                _manager.CampaignService.UpdateOneCampaign(id, campaignDto, true);
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
+            _manager.CampaignService.UpdateOneCampaign(id, campaignDto, false);
 
                 return NoContent();
           
@@ -86,19 +90,21 @@ namespace Presentation.Controllers
 
         [HttpPatch("{id:int}")]
         public IActionResult PartiallUpdateOneCampaign([FromRoute(Name = "id")] int id,
-              [FromBody] JsonPatchDocument<Campaign> CampaignPatch)
+              [FromBody] JsonPatchDocument<CampaignDtoForUpdate> campaignPatch)
         {
-           
-                //check Entitiy
-                var entity = _manager
-                    .CampaignService
-                    .GetOneCampaignById(id, true);
+            if (campaignPatch is null)
+                return BadRequest();
 
-                CampaignPatch.ApplyTo(entity);
-                _manager.CampaignService.UpdateOneCampaign(id, 
-                    new CampaignDtoForUpdate(entity.Id,entity.Title,entity.AdvertPrice,entity.StartDate,entity.EndDate),
-                    true);
-                return NoContent();
+            var result = _manager.CampaignService.GetOneCampaignForPatch(id, false);
+
+            campaignPatch.ApplyTo(result.campaignDtoForUpdate,ModelState);
+
+            TryValidateModel(result.campaignDtoForUpdate);
+
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
+            _manager.CampaignService.SaveChangesForPatch(result.campaignDtoForUpdate, result.campaign);
+            return NoContent();
            
         }
 
