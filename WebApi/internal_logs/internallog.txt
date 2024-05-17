@@ -1,0 +1,72 @@
+2024-05-16 17:55:28.9431 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2024-05-16 17:55:29.1076 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.2.2526. Product version: 5.3.2+8d52d4f3fcdbd84beae3442e1fdc8125598ed81f. GlobalAssemblyCache: False
+2024-05-16 17:55:29.1526 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\mcht4\Desktop\CRM\Crm\WebApi\nlog.config
+2024-05-16 17:55:29.2110 Info Configuration initialized.
+2024-05-16 17:56:18.2470 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2024-05-16 17:56:18.2834 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.2.2526. Product version: 5.3.2+8d52d4f3fcdbd84beae3442e1fdc8125598ed81f. GlobalAssemblyCache: False
+2024-05-16 17:56:18.3058 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\mcht4\Desktop\CRM\Crm\WebApi\nlog.config
+2024-05-16 17:56:18.3331 Info Configuration initialized.
+2024-05-16 17:59:28.6398 Info AppDomain Shutting down. LogFactory closing...
+2024-05-16 17:59:28.6590 Info LogFactory has been closed.
+2024-05-16 21:25:17.8832 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2024-05-16 21:25:17.9314 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.2.2526. Product version: 5.3.2+8d52d4f3fcdbd84beae3442e1fdc8125598ed81f. GlobalAssemblyCache: False
+2024-05-16 21:25:17.9676 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\mcht4\Desktop\CRM\Crm\WebApi\nlog.config
+2024-05-16 21:25:17.9984 Info Configuration initialized.
+2024-05-16 21:26:04.0193 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2024-05-16 21:26:04.0677 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.2.2526. Product version: 5.3.2+8d52d4f3fcdbd84beae3442e1fdc8125598ed81f. GlobalAssemblyCache: False
+2024-05-16 21:26:04.0965 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\mcht4\Desktop\CRM\Crm\WebApi\nlog.config
+2024-05-16 21:26:04.1267 Info Configuration initialized.
+2024-05-16 21:26:33.6489 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2024-05-16 21:26:33.6745 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.2.2526. Product version: 5.3.2+8d52d4f3fcdbd84beae3442e1fdc8125598ed81f. GlobalAssemblyCache: False
+2024-05-16 21:26:33.6896 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\mcht4\Desktop\CRM\Crm\WebApi\nlog.config
+2024-05-16 21:26:33.7053 Info Configuration initialized.
+2024-05-16 21:28:47.0889 Info AppDomain Shutting down. LogFactory closing...
+2024-05-16 21:28:47.1143 Info LogFactory has been closed.
+2024-05-16 21:49:27.6260 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2024-05-16 21:49:27.6588 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.2.2526. Product version: 5.3.2+8d52d4f3fcdbd84beae3442e1fdc8125598ed81f. GlobalAssemblyCache: False
+2024-05-16 21:49:27.6776 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\mcht4\Desktop\CRM\Crm\WebApi\nlog.config
+2024-05-16 21:49:27.6994 Info Configuration initialized.
+2024-05-16 21:59:19.6621 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2024-05-16 21:59:19.7145 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.2.2526. Product version: 5.3.2+8d52d4f3fcdbd84beae3442e1fdc8125598ed81f. GlobalAssemblyCache: False
+2024-05-16 21:59:19.7384 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\mcht4\Desktop\CRM\Crm\WebApi\nlog.config
+2024-05-16 21:59:19.7665 Info Configuration initialized.
+2024-05-16 22:00:02.9595 Info AppDomain Shutting down. LogFactory closing...
+2024-05-16 22:00:02.9595 Info LogFactory has been closed.
+2024-05-17 08:58:37.3429 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2024-05-17 08:58:37.3804 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.2.2526. Product version: 5.3.2+8d52d4f3fcdbd84beae3442e1fdc8125598ed81f. GlobalAssemblyCache: False
+2024-05-17 08:58:37.4031 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\mcht4\Desktop\CRM\Crm\WebApi\nlog.config
+2024-05-17 08:58:37.4344 Info Configuration initialized.
+2024-05-17 09:14:35.2791 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2024-05-17 09:14:35.3025 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.2.2526. Product version: 5.3.2+8d52d4f3fcdbd84beae3442e1fdc8125598ed81f. GlobalAssemblyCache: False
+2024-05-17 09:14:35.3152 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\mcht4\Desktop\CRM\Crm\WebApi\nlog.config
+2024-05-17 09:14:35.3331 Info Configuration initialized.
+2024-05-17 09:14:37.1495 Info AppDomain Shutting down. LogFactory closing...
+2024-05-17 09:14:37.1594 Info LogFactory has been closed.
+2024-05-17 09:15:48.7014 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2024-05-17 09:15:48.7311 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.2.2526. Product version: 5.3.2+8d52d4f3fcdbd84beae3442e1fdc8125598ed81f. GlobalAssemblyCache: False
+2024-05-17 09:15:48.7482 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\mcht4\Desktop\CRM\Crm\WebApi\nlog.config
+2024-05-17 09:15:48.7634 Info Configuration initialized.
+2024-05-17 09:15:51.0603 Info AppDomain Shutting down. LogFactory closing...
+2024-05-17 09:15:51.0714 Info LogFactory has been closed.
+2024-05-17 09:16:23.8916 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2024-05-17 09:16:23.9126 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.2.2526. Product version: 5.3.2+8d52d4f3fcdbd84beae3442e1fdc8125598ed81f. GlobalAssemblyCache: False
+2024-05-17 09:16:23.9254 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\mcht4\Desktop\CRM\Crm\WebApi\nlog.config
+2024-05-17 09:16:23.9401 Info Configuration initialized.
+2024-05-17 09:16:24.7042 Info AppDomain Shutting down. LogFactory closing...
+2024-05-17 09:16:24.7142 Info LogFactory has been closed.
+2024-05-17 09:16:27.9084 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2024-05-17 09:16:27.9289 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.2.2526. Product version: 5.3.2+8d52d4f3fcdbd84beae3442e1fdc8125598ed81f. GlobalAssemblyCache: False
+2024-05-17 09:16:27.9404 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\mcht4\Desktop\CRM\Crm\WebApi\nlog.config
+2024-05-17 09:16:27.9551 Info Configuration initialized.
+2024-05-17 09:16:29.0788 Info AppDomain Shutting down. LogFactory closing...
+2024-05-17 09:16:29.0886 Info LogFactory has been closed.
+2024-05-17 09:18:53.1332 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2024-05-17 09:18:53.1545 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.2.2526. Product version: 5.3.2+8d52d4f3fcdbd84beae3442e1fdc8125598ed81f. GlobalAssemblyCache: False
+2024-05-17 09:18:53.1662 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\mcht4\Desktop\CRM\Crm\WebApi\nlog.config
+2024-05-17 09:18:53.1819 Info Configuration initialized.
+2024-05-17 09:18:54.9472 Info AppDomain Shutting down. LogFactory closing...
+2024-05-17 09:18:54.9573 Info LogFactory has been closed.
+2024-05-17 09:19:40.1885 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2024-05-17 09:19:40.2278 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.2.2526. Product version: 5.3.2+8d52d4f3fcdbd84beae3442e1fdc8125598ed81f. GlobalAssemblyCache: False
+2024-05-17 09:19:40.2448 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\mcht4\Desktop\CRM\Crm\WebApi\nlog.config
+2024-05-17 09:19:40.2448 Info Configuration initialized.
