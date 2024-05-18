@@ -150,3 +150,9 @@
 2024-05-17 17:45:03.6579 Info Configuration initialized.
 2024-05-17 17:57:46.1403 Info AppDomain Shutting down. LogFactory closing...
 2024-05-17 17:57:46.1631 Info LogFactory has been closed.
+2024-05-17 22:38:52.3954 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2024-05-17 22:38:52.4785 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.2.2526. Product version: 5.3.2+8d52d4f3fcdbd84beae3442e1fdc8125598ed81f. GlobalAssemblyCache: False
+2024-05-17 22:38:52.5077 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\mcht4\Desktop\CRM\Crm\WebApi\nlog.config
+2024-05-17 22:38:52.5586 Info Configuration initialized.
+2024-05-17 22:43:49.1530 Info AppDomain Shutting down. LogFactory closing...
+2024-05-17 22:43:49.1747 Info LogFactory has been closed.

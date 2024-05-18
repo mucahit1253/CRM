@@ -1,4 +1,5 @@
 ﻿using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 using Repositories.Contracts;
 using System;
 using System.Collections.Generic;
@@ -20,14 +21,15 @@ namespace Repositories.EfCore
         public void DeleteOneCampaign(Campaign campaign) => Delete(campaign);
 
 
-        public IQueryable<Campaign> GetAllCampaing(bool trackChanges) =>
-            FindAll(trackChanges)
-            .OrderBy(c => c.Id);
+        public async Task<IEnumerable<Campaign>> GetAllCampaingAsync(bool trackChanges) =>
+           await FindAll(trackChanges)
+            .OrderBy(c => c.Id)
+            .ToListAsync();
 
 
-        public Campaign GetOneCampaingById(int id, bool trackChanges) =>
-            FindByCondition(c => c.Id.Equals(id), trackChanges)
-            .SingleOrDefault();
+        public async Task<Campaign> GetOneCampaingByIdAsync(int id, bool trackChanges) =>
+            await FindByCondition(c => c.Id.Equals(id), trackChanges)
+            .SingleOrDefaultAsync();
 
 
         public void UpdateOneCampaign(Campaign campaign) => Update(campaign);

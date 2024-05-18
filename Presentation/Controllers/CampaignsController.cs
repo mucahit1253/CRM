@@ -24,18 +24,18 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllCampaigns()
+        public async Task <IActionResult> GetAllCampaignsAsync()
         {
             
-                var campaigns = _manager.CampaignService.GetAllCampaign(false);
+                var campaigns =await _manager.CampaignService.GetAllCampaignAsync(false);
                 return Ok(campaigns);
             
            
         }
         [HttpGet("{id:int}")]
-        public IActionResult GetOneCampaign([FromRoute(Name = "id")] int id)
+        public async Task<IActionResult> GetOneCampaignAsync([FromRoute(Name = "id")] int id)
         {
-                var campaign = _manager.CampaignService.GetOneCampaignById(id, false);
+                var campaign = await _manager.CampaignService.GetOneCampaignByIdAsync(id, false);
 
             
               return Ok(campaign);
@@ -45,7 +45,7 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateOneCampaign([FromBody] CampaignDtoForInsertion campaignDto)
+        public async Task<IActionResult> CreateOneCampaignAsync([FromBody] CampaignDtoForInsertion campaignDto)
         {
             
             if (campaignDto is null)
@@ -53,7 +53,7 @@ namespace Presentation.Controllers
             if (!ModelState.IsValid)
                 return UnprocessableEntity(ModelState);
 
-               var campaign= _manager.CampaignService.CreateOneCampaign(campaignDto);
+               var campaign=await _manager.CampaignService.CreateOneCampaignAsync(campaignDto);
 
                 return StatusCode(201, campaign);
             
@@ -64,7 +64,7 @@ namespace Presentation.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public IActionResult UpdateOneCampaign([FromRoute(Name = "id")] int id,
+        public async Task<IActionResult> UpdateOneCampaignAsync([FromRoute(Name = "id")] int id,
             [FromBody] CampaignDtoForUpdate campaignDto)
         {
 
@@ -73,29 +73,29 @@ namespace Presentation.Controllers
                     return BadRequest();
             if (!ModelState.IsValid)
                 return UnprocessableEntity(ModelState);
-            _manager.CampaignService.UpdateOneCampaign(id, campaignDto, false);
+            await _manager.CampaignService.UpdateOneCampaignAsync(id, campaignDto, false);
 
                 return NoContent();
           
 
         }
         [HttpDelete("{id:int}")]
-        public IActionResult DeleteOneCampaign([FromRoute(Name = "id")] int id)
+        public async Task<IActionResult> DeleteOneCampaignAsync([FromRoute(Name = "id")] int id)
         {
 
-            _manager.CampaignService.DeleteOneCampaign(id, false);
+            await _manager.CampaignService.DeleteOneCampaignAsync(id, false);
 
             return NoContent();
         }
 
         [HttpPatch("{id:int}")]
-        public IActionResult PartiallUpdateOneCampaign([FromRoute(Name = "id")] int id,
+        public async Task <IActionResult> PartiallUpdateOneCampaignAsync([FromRoute(Name = "id")] int id,
               [FromBody] JsonPatchDocument<CampaignDtoForUpdate> campaignPatch)
         {
             if (campaignPatch is null)
                 return BadRequest();
 
-            var result = _manager.CampaignService.GetOneCampaignForPatch(id, false);
+            var result =await _manager.CampaignService.GetOneCampaignForPatchAsync(id, false);
 
             campaignPatch.ApplyTo(result.campaignDtoForUpdate,ModelState);
 
@@ -103,7 +103,7 @@ namespace Presentation.Controllers
 
             if (!ModelState.IsValid)
                 return UnprocessableEntity(ModelState);
-            _manager.CampaignService.SaveChangesForPatch(result.campaignDtoForUpdate, result.campaign);
+            await _manager.CampaignService.SaveChangesForPatchAsync(result.campaignDtoForUpdate, result.campaign);
             return NoContent();
            
         }

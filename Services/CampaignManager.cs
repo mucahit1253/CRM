@@ -26,42 +26,43 @@ namespace Services
 
 
 
-        public CampaignDto CreateOneCampaign(CampaignDtoForInsertion campaignDto)
+        public async Task<CampaignDto> CreateOneCampaignAsync(CampaignDtoForInsertion campaignDto)
         {
-            var entity = _mapper.Map<Campaign>(campaignDto);
+            var entity =_mapper.Map<Campaign>(campaignDto);
             _manager.Campaign.CreateOneCampaign(entity);
-            _manager.Save();
+            await _manager.SaveAsync();
             return _mapper.Map<CampaignDto>(entity);
         }
 
-        public void DeleteOneCampaign(int id, bool trackChanhes)
+        public async Task DeleteOneCampaignAsync(int id, bool trackChanhes)
         {
-            var entity = _manager.Campaign.GetOneCampaingById(id, trackChanhes);
+            var entity = await _manager.Campaign.GetOneCampaingByIdAsync(id, trackChanhes);
             if (entity is null)
                 throw new CampaingNotFoundException(id);
                
 
             _manager.Campaign.DeleteOneCampaign(entity);
-            _manager.Save();
+            await _manager.SaveAsync();
         }
 
-        public IEnumerable<CampaignDto> GetAllCampaign(bool trackChanhes)
+        public async Task<IEnumerable<CampaignDto>> GetAllCampaignAsync(bool trackChanhes)
         {
-            var campaigns= _manager.Campaign.GetAllCampaing(trackChanhes);
+            var campaigns=await _manager.Campaign.GetAllCampaingAsync(trackChanhes);
             return _mapper.Map<IEnumerable<CampaignDto>>(campaigns);
         }
 
-        public CampaignDto GetOneCampaignById(int id, bool trackChanhes)
+        public async Task<CampaignDto>GetOneCampaignByIdAsync(int id, bool trackChanhes)
         {
-            var campaign= _manager.Campaign.GetOneCampaingById(id, trackChanhes);
+            var campaign=await _manager.Campaign.GetOneCampaingByIdAsync(id, trackChanhes);
             if (campaign is null)
                 throw new CampaingNotFoundException(id);
             return _mapper.Map<CampaignDto>(campaign);
         }
 
-        public (CampaignDtoForUpdate campaignDtoForUpdate, Campaign campaign) GetOneCampaignForPatch(int id, bool trackChanges)
+        public async Task<(CampaignDtoForUpdate campaignDtoForUpdate, Campaign campaign)> 
+            GetOneCampaignForPatchAsync(int id, bool trackChanges)
         {
-            var campaign = _manager.Campaign.GetOneCampaingById(id, trackChanges);
+            var campaign = await _manager.Campaign.GetOneCampaingByIdAsync(id, trackChanges);
             if (campaign is null)
                 throw new CampaingNotFoundException(id);
             var campaignDtoForUpdate=_mapper.Map<CampaignDtoForUpdate>(campaign);
@@ -69,24 +70,25 @@ namespace Services
 
         }
 
-        public void SaveChangesForPatch(CampaignDtoForUpdate campaignDtoForUpdate, Campaign campaign)
+        public async Task SaveChangesForPatchAsync(CampaignDtoForUpdate campaignDtoForUpdate, Campaign campaign)
         {
             _mapper.Map(campaignDtoForUpdate, campaign);
-            _manager.Save();
+            await _manager.SaveAsync();
         }
 
-        public void UpdateOneCampaign(int id, 
+        public async Task UpdateOneCampaignAsync(int id, 
             CampaignDtoForUpdate campaignDto,
             bool trackChanges)
         {
-            var entity = _manager.Campaign.GetOneCampaingById(id, trackChanges);
+            var entity = await _manager.Campaign.GetOneCampaingByIdAsync(id, trackChanges);
+
             if (entity is null)
                 throw new CampaingNotFoundException(id);
 
             //mapping
             entity = _mapper.Map<Campaign>(campaignDto);
             _manager.Campaign.Update(entity);
-            _manager.Save();
+            await _manager.SaveAsync();
         }
     }
 }

@@ -9,8 +9,8 @@ namespace Repositories.Contracts
 {
     public interface ICampaignRepository :IRepositoriesBase<Campaign>
     {
-        IQueryable<Campaign> GetAllCampaing(bool trackChanges);
-        Campaign GetOneCampaingById(int id, bool trackChanges);
+        Task<IEnumerable<Campaign>> GetAllCampaingAsync(bool trackChanges);
+        Task<Campaign> GetOneCampaingByIdAsync(int id, bool trackChanges);
 
         void CreateOneCampaign(Campaign campaign);
         void UpdateOneCampaign(Campaign campaign);
