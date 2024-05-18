@@ -8,7 +8,10 @@ namespace WebApi.Utilities.AutoMapper
     {
         public MappingProfile()
         {
-            CreateMap<CampaignDtoForUpdate, Campaign>();
+            CreateMap<CampaignDtoForUpdate, Campaign>().ReverseMap();
+            CreateMap<Campaign, CampaignDto>();
+            CreateMap<CampaignDtoForInsertion, Campaign>();
+
         }
     }
 }

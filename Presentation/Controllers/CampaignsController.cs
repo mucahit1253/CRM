@@ -3,6 +3,7 @@ using Entities.Exceptions;
 using Entities.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.ActionFilters;
 using Services.Contracts;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ using System.Threading.Tasks;
 
 namespace Presentation.Controllers
 {
+
+    [ServiceFilter(typeof(LogFilterAttribute))]
     [ApiController]
     [Route("api/Campaigns")]
     public class CampaignsController : ControllerBase
@@ -24,18 +27,18 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllCampaigns()
+        public async Task <IActionResult> GetAllCampaignsAsync()
         {
             
-                var campaigns = _manager.CampaignService.GetAllCampaign(false);
+                var campaigns =await _manager.CampaignService.GetAllCampaignAsync(false);
                 return Ok(campaigns);
             
            
         }
         [HttpGet("{id:int}")]
-        public IActionResult GetOneCampaign([FromRoute(Name = "id")] int id)
+        public async Task<IActionResult> GetOneCampaignAsync([FromRoute(Name = "id")] int id)
         {
-                var campaign = _manager.CampaignService.GetOneCampaignById(id, false);
+                var campaign = await _manager.CampaignService.GetOneCampaignByIdAsync(id, false);
 
             
               return Ok(campaign);
@@ -43,15 +46,14 @@ namespace Presentation.Controllers
             
 
         }
-
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         [HttpPost]
-        public IActionResult CreateOneCampaign([FromBody] Campaign campaign)
+        public async Task<IActionResult> CreateOneCampaignAsync([FromBody] CampaignDtoForInsertion campaignDto)
         {
             
-                if (campaign is null)
-                    return BadRequest();//400
+          
 
-                _manager.CampaignService.CreateOneCampaign(campaign);
+               var campaign=await _manager.CampaignService.CreateOneCampaignAsync(campaignDto);
 
                 return StatusCode(201, campaign);
             
@@ -60,45 +62,45 @@ namespace Presentation.Controllers
                 
             
         }
-
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         [HttpPut("{id:int}")]
-        public IActionResult UpdateOneCampaign([FromRoute(Name = "id")] int id,
+        public async Task<IActionResult> UpdateOneCampaignAsync([FromRoute(Name = "id")] int id,
             [FromBody] CampaignDtoForUpdate campaignDto)
         {
 
             
-                if (campaignDto is null)
-                    return BadRequest();
-                _manager.CampaignService.UpdateOneCampaign(id, campaignDto, true);
+            await _manager.CampaignService.UpdateOneCampaignAsync(id, campaignDto, false);
 
                 return NoContent();
           
 
         }
         [HttpDelete("{id:int}")]
-        public IActionResult DeleteOneCampaign([FromRoute(Name = "id")] int id)
+        public async Task<IActionResult> DeleteOneCampaignAsync([FromRoute(Name = "id")] int id)
         {
 
-            _manager.CampaignService.DeleteOneCampaign(id, false);
+            await _manager.CampaignService.DeleteOneCampaignAsync(id, false);
 
             return NoContent();
         }
 
         [HttpPatch("{id:int}")]
-        public IActionResult PartiallUpdateOneCampaign([FromRoute(Name = "id")] int id,
-              [FromBody] JsonPatchDocument<Campaign> CampaignPatch)
+        public async Task <IActionResult> PartiallUpdateOneCampaignAsync([FromRoute(Name = "id")] int id,
+              [FromBody] JsonPatchDocument<CampaignDtoForUpdate> campaignPatch)
         {
-           
-                //check Entitiy
-                var entity = _manager
-                    .CampaignService
-                    .GetOneCampaignById(id, true);
+            if (campaignPatch is null)
+                return BadRequest();
 
-                CampaignPatch.ApplyTo(entity);
-                _manager.CampaignService.UpdateOneCampaign(id, 
-                    new CampaignDtoForUpdate(entity.Id,entity.Title,entity.AdvertPrice,entity.StartDate,entity.EndDate),
-                    true);
-                return NoContent();
+            var result =await _manager.CampaignService.GetOneCampaignForPatchAsync(id, false);
+
+            campaignPatch.ApplyTo(result.campaignDtoForUpdate,ModelState);
+
+            TryValidateModel(result.campaignDtoForUpdate);
+
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
+            await _manager.CampaignService.SaveChangesForPatchAsync(result.campaignDtoForUpdate, result.campaign);
+            return NoContent();
            
         }
 

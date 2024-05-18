@@ -10,11 +10,14 @@ namespace Services.Contracts
 {
     public interface ICampaignService
     {
-        IEnumerable<Campaign> GetAllCampaign(bool trackChanhes);
-        Campaign GetOneCampaignById(int id, bool trackChanhes);
-        Campaign CreateOneCampaign(Campaign campaign);
-        void UpdateOneCampaign(int id, CampaignDtoForUpdate campaignDto, bool trackChanges);
-        void DeleteOneCampaign(int id, bool trackChanhes);
+        Task<IEnumerable<CampaignDto>> GetAllCampaignAsync(bool trackChanhes);
+        Task<CampaignDto> GetOneCampaignByIdAsync(int id, bool trackChanhes);
+        Task<CampaignDto> CreateOneCampaignAsync(CampaignDtoForInsertion campaign);
+        Task UpdateOneCampaignAsync(int id, CampaignDtoForUpdate campaignDto, bool trackChanges);
+        Task DeleteOneCampaignAsync(int id, bool trackChanhes);
+        Task<(CampaignDtoForUpdate campaignDtoForUpdate,Campaign campaign)>  GetOneCampaignForPatchAsync(int id, bool trackChanges);
+
+        Task SaveChangesForPatchAsync(CampaignDtoForUpdate campaignDtoForUpdate, Campaign campaign);
 
     }
 }
