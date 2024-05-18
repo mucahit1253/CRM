@@ -20,9 +20,9 @@ namespace Repositories.EfCore.Config
 
         public ICampaignRepository Campaign => _campaignRepository.Value;
 
-        public void Save()
+        public async Task SaveAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }
