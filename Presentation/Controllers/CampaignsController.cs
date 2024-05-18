@@ -3,6 +3,7 @@ using Entities.Exceptions;
 using Entities.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.ActionFilters;
 using Services.Contracts;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ using System.Threading.Tasks;
 
 namespace Presentation.Controllers
 {
+
+    [ServiceFilter(typeof(LogFilterAttribute))]
     [ApiController]
     [Route("api/Campaigns")]
     public class CampaignsController : ControllerBase
@@ -43,15 +46,12 @@ namespace Presentation.Controllers
             
 
         }
-
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         [HttpPost]
         public async Task<IActionResult> CreateOneCampaignAsync([FromBody] CampaignDtoForInsertion campaignDto)
         {
             
-            if (campaignDto is null)
-                    return BadRequest();//400
-            if (!ModelState.IsValid)
-                return UnprocessableEntity(ModelState);
+          
 
                var campaign=await _manager.CampaignService.CreateOneCampaignAsync(campaignDto);
 
@@ -62,17 +62,13 @@ namespace Presentation.Controllers
                 
             
         }
-
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateOneCampaignAsync([FromRoute(Name = "id")] int id,
             [FromBody] CampaignDtoForUpdate campaignDto)
         {
 
             
-            if (campaignDto is null)
-                    return BadRequest();
-            if (!ModelState.IsValid)
-                return UnprocessableEntity(ModelState);
             await _manager.CampaignService.UpdateOneCampaignAsync(id, campaignDto, false);
 
                 return NoContent();

@@ -36,10 +36,8 @@ namespace Services
 
         public async Task DeleteOneCampaignAsync(int id, bool trackChanhes)
         {
-            var entity = await _manager.Campaign.GetOneCampaingByIdAsync(id, trackChanhes);
-            if (entity is null)
-                throw new CampaingNotFoundException(id);
-               
+
+            var entity = await GetOneCampaignByIdAndCheckExists(id, trackChanhes);
 
             _manager.Campaign.DeleteOneCampaign(entity);
             await _manager.SaveAsync();
@@ -53,18 +51,16 @@ namespace Services
 
         public async Task<CampaignDto>GetOneCampaignByIdAsync(int id, bool trackChanhes)
         {
-            var campaign=await _manager.Campaign.GetOneCampaingByIdAsync(id, trackChanhes);
-            if (campaign is null)
-                throw new CampaingNotFoundException(id);
+            var campaign = await GetOneCampaignByIdAndCheckExists(id, trackChanhes);
+            
             return _mapper.Map<CampaignDto>(campaign);
         }
 
         public async Task<(CampaignDtoForUpdate campaignDtoForUpdate, Campaign campaign)> 
             GetOneCampaignForPatchAsync(int id, bool trackChanges)
         {
-            var campaign = await _manager.Campaign.GetOneCampaingByIdAsync(id, trackChanges);
-            if (campaign is null)
-                throw new CampaingNotFoundException(id);
+            var campaign = await GetOneCampaignByIdAndCheckExists(id,trackChanges);
+            
             var campaignDtoForUpdate=_mapper.Map<CampaignDtoForUpdate>(campaign);
             return (campaignDtoForUpdate,campaign);
 
@@ -80,15 +76,24 @@ namespace Services
             CampaignDtoForUpdate campaignDto,
             bool trackChanges)
         {
-            var entity = await _manager.Campaign.GetOneCampaingByIdAsync(id, trackChanges);
+            var entity = await GetOneCampaignByIdAndCheckExists(id, trackChanges);
 
-            if (entity is null)
-                throw new CampaingNotFoundException(id);
+            
 
             //mapping
             entity = _mapper.Map<Campaign>(campaignDto);
             _manager.Campaign.Update(entity);
             await _manager.SaveAsync();
+        }
+        private async Task<Campaign> GetOneCampaignByIdAndCheckExists(int id, bool trackChanges)
+        {
+            // check entity 
+            var entity = await _manager.Campaign.GetOneCampaingByIdAsync(id, trackChanges);
+
+            if (entity is null)
+                throw new CampaingNotFoundException(id);
+
+            return entity;
         }
     }
 }
