@@ -1,6 +1,7 @@
 ﻿using Entities.DataTransferObjects;
 using Entities.Exceptions;
 using Entities.Models;
+using Entities.RequestFeatures;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.ActionFilters;
@@ -9,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Presentation.Controllers
@@ -20,18 +23,23 @@ namespace Presentation.Controllers
     public class CampaignsController : ControllerBase
     {
         private readonly IServiceManager _manager;
-
+         
         public CampaignsController(IServiceManager manager)
         {
             _manager = manager;
         }
 
         [HttpGet]
-        public async Task <IActionResult> GetAllCampaignsAsync()
+        public async Task <IActionResult> GetAllCampaignsAsync([FromQuery]CampaignParameters campaignParameters)
         {
             
-                var campaigns =await _manager.CampaignService.GetAllCampaignAsync(false);
-                return Ok(campaigns);
+            var pageResult =await _manager.
+                CampaignService.
+                GetAllCampaignAsync(campaignParameters, false);
+
+            Response.Headers.Add("X-Pagination",JsonSerializer.Serialize(pageResult.metaData));
+
+                return Ok(pageResult.campaigns);
             
            
         }

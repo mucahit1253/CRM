@@ -2,6 +2,7 @@
 using Entities.DataTransferObjects;
 using Entities.Exceptions;
 using Entities.Models;
+using Entities.RequestFeatures;
 using Repositories.Contracts;
 using Services.Contracts;
 using System;
@@ -43,10 +44,13 @@ namespace Services
             await _manager.SaveAsync();
         }
 
-        public async Task<IEnumerable<CampaignDto>> GetAllCampaignAsync(bool trackChanhes)
+        public async Task<(IEnumerable<CampaignDto> campaigns,MetaData metaData)> GetAllCampaignAsync(CampaignParameters campaignParameters, bool trackChanhes)
         {
-            var campaigns=await _manager.Campaign.GetAllCampaingAsync(trackChanhes);
-            return _mapper.Map<IEnumerable<CampaignDto>>(campaigns);
+            var campaignsWithMetaData=await _manager
+                .Campaign
+                .GetAllCampaingAsync(campaignParameters,trackChanhes);
+            var campaignsDto=_mapper.Map<IEnumerable<CampaignDto>>(campaignsWithMetaData);
+            return (campaignsDto, campaignsWithMetaData.MetaData);
         }
 
         public async Task<CampaignDto>GetOneCampaignByIdAsync(int id, bool trackChanhes)

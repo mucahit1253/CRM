@@ -1,5 +1,6 @@
 ﻿using Entities.DataTransferObjects;
 using Entities.Models;
+using Entities.RequestFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Services.Contracts
 {
     public interface ICampaignService
     {
-        Task<IEnumerable<CampaignDto>> GetAllCampaignAsync(bool trackChanhes);
+        Task<(IEnumerable<CampaignDto>campaigns,MetaData metaData)> GetAllCampaignAsync(CampaignParameters campaignParameters, bool trackChanhes);
         Task<CampaignDto> GetOneCampaignByIdAsync(int id, bool trackChanhes);
         Task<CampaignDto> CreateOneCampaignAsync(CampaignDtoForInsertion campaign);
         Task UpdateOneCampaignAsync(int id, CampaignDtoForUpdate campaignDto, bool trackChanges);
