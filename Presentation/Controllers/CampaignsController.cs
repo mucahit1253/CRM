@@ -28,8 +28,8 @@ namespace Presentation.Controllers
         {
             _manager = manager;
         }
-
-        [HttpGet]
+        [HttpHead]
+        [HttpGet(Name = "GetAllCampaignsAsync")]
         [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
         public async Task <IActionResult> GetAllCampaignsAsync([FromQuery]CampaignParameters campaignParameters)
         {
@@ -64,7 +64,8 @@ namespace Presentation.Controllers
 
         }
         [ServiceFilter(typeof(ValidationFilterAttribute))]
-        [HttpPost]
+
+        [HttpPost(Name = "CreateOneCampaignAsync")]
         public async Task<IActionResult> CreateOneCampaignAsync([FromBody] CampaignDtoForInsertion campaignDto)
         {
             
@@ -119,6 +120,13 @@ namespace Presentation.Controllers
             await _manager.CampaignService.SaveChangesForPatchAsync(result.campaignDtoForUpdate, result.campaign);
             return NoContent();
            
+        }
+
+        [HttpOptions]
+        public IActionResult GetCampaignsOptions()
+        {
+            Response.Headers.Add("Allow", "GET, PUT, POST, PATCH, DELETE, HEAD, OPTIONS");
+            return Ok();
         }
 
     }
