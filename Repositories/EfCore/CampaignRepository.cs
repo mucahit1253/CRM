@@ -1,5 +1,8 @@
 ﻿using Entities.Models;
+using Entities.RequestFeatures;
+using Microsoft.EntityFrameworkCore;
 using Repositories.Contracts;
+using Repositories.EfCore.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Repositories.EfCore
 {
-    public class CampaignRepository : RepositoriesBase<Campaign>, ICampaignRepository
+    public sealed class CampaignRepository : RepositoriesBase<Campaign>, ICampaignRepository
     {
         public CampaignRepository(RepositoryContext context) : base(context)
         {
@@ -20,14 +23,23 @@ namespace Repositories.EfCore
         public void DeleteOneCampaign(Campaign campaign) => Delete(campaign);
 
 
-        public IQueryable<Campaign> GetAllCampaing(bool trackChanges) =>
-            FindAll(trackChanges)
-            .OrderBy(c => c.Id);
+        public async Task<PagedList<Campaign>> GetAllCampaingAsync(CampaignParameters campaignParameters,
+            bool trackChanges)
+        {
+           var campaigns= await FindAll(trackChanges)
+                .FilterCampaign(campaignParameters.StartDate, campaignParameters.EndDate)
+                .Search(campaignParameters.SearchTerm)
+                .Sort(campaignParameters.OrderBy)
+                .ToListAsync();
+            return PagedList<Campaign>
+                .ToPagedList(campaigns, campaignParameters.PageNumber, campaignParameters.PageSize);
+        }
+           
 
 
-        public Campaign GetOneCampaingById(int id, bool trackChanges) =>
-            FindByCondition(c => c.Id.Equals(id), trackChanges)
-            .SingleOrDefault();
+        public async Task<Campaign> GetOneCampaingByIdAsync(int id, bool trackChanges) =>
+            await FindByCondition(c => c.Id.Equals(id), trackChanges)
+            .SingleOrDefaultAsync();
 
 
         public void UpdateOneCampaign(Campaign campaign) => Update(campaign);

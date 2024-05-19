@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Entities.DataTransferObjects;
+using Microsoft.EntityFrameworkCore;
+using Presentation.ActionFilters;
 using Repositories.Contracts;
 using Repositories.EfCore;
 using Repositories.EfCore.Config;
@@ -21,5 +23,29 @@ namespace WebApi.Extensions
 
         public static void ConfigureLoggerService(this IServiceCollection services)=>
             services.AddSingleton<ILoggerService, LoggerManager>();
+
+        public static void ConfigureActionFilters(this IServiceCollection services)
+        {
+            services.AddScoped<ValidationFilterAttribute>();
+            services.AddSingleton<LogFilterAttribute>();
+        }
+
+        public static void ConfigureCors(this IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder =>
+                  builder.AllowAnyOrigin()
+                  .AllowAnyMethod()
+                  .AllowAnyHeader()
+                  .WithExposedHeaders("X-Pagination")
+                );
+            });
+        }
+        public static void ConfigureDataShaper(this IServiceCollection services)
+        {
+            services.AddScoped<IDataShaper<CampaignDto>, DataShaper<CampaignDto>>();
+        }
+
     }
 }
