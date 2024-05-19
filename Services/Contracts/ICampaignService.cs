@@ -3,6 +3,7 @@ using Entities.Models;
 using Entities.RequestFeatures;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace Services.Contracts
 {
     public interface ICampaignService
     {
-        Task<(IEnumerable<CampaignDto>campaigns,MetaData metaData)> GetAllCampaignAsync(CampaignParameters campaignParameters, bool trackChanhes);
+        Task<(IEnumerable<ExpandoObject>campaigns,MetaData metaData)> GetAllCampaignAsync(CampaignParameters campaignParameters, bool trackChanhes);
         Task<CampaignDto> GetOneCampaignByIdAsync(int id, bool trackChanhes);
         Task<CampaignDto> CreateOneCampaignAsync(CampaignDtoForInsertion campaign);
         Task UpdateOneCampaignAsync(int id, CampaignDtoForUpdate campaignDto, bool trackChanges);

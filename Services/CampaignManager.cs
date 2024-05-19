@@ -7,6 +7,7 @@ using Repositories.Contracts;
 using Services.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,11 +19,13 @@ namespace Services
         private readonly IRepositoryManager _manager;
         private readonly ILoggerService _logger;
         private readonly IMapper _mapper;
-        public CampaignManager(IRepositoryManager manager, ILoggerService logger, IMapper mapper)
+        private readonly IDataShaper<CampaignDto> _shaper;
+        public CampaignManager(IRepositoryManager manager, ILoggerService logger, IMapper mapper, IDataShaper<CampaignDto> shaper)
         {
             _manager = manager;
             _logger = logger;
             _mapper = mapper;
+            _shaper = shaper;
         }
 
 
@@ -44,7 +47,7 @@ namespace Services
             await _manager.SaveAsync();
         }
 
-        public async Task<(IEnumerable<CampaignDto> campaigns,MetaData metaData)> GetAllCampaignAsync(CampaignParameters campaignParameters,
+        public async Task<(IEnumerable<ExpandoObject> campaigns,MetaData metaData)> GetAllCampaignAsync(CampaignParameters campaignParameters,
             bool trackChanhes)
         {
             if (!campaignParameters.ValidDateRange)
@@ -53,7 +56,9 @@ namespace Services
                 .Campaign
                 .GetAllCampaingAsync(campaignParameters,trackChanhes);
             var campaignsDto=_mapper.Map<IEnumerable<CampaignDto>>(campaignsWithMetaData);
-            return (campaignsDto, campaignsWithMetaData.MetaData);
+
+            var shapedData = _shaper.ShapeData(campaignsDto, campaignParameters.Fields);
+            return (campaigns:shapedData,metaData:campaignsWithMetaData.MetaData);
         }
 
         public async Task<CampaignDto>GetOneCampaignByIdAsync(int id, bool trackChanhes)
