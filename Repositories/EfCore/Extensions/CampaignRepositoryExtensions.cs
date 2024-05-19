@@ -1,12 +1,9 @@
 ﻿using Entities.Models;
-using Entities.RequestFeatures;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
+using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
-using static System.Reflection.Metadata.BlobBuilder;
+using System.Linq.Dynamic.Core;
+using Repositories.EFCore.Extensions;
+
 
 namespace Repositories.EfCore.Extensions
 {
@@ -31,6 +28,24 @@ namespace Repositories.EfCore.Extensions
                     .ToLower()
                     .Contains(searchTerm));
         }
+
+        public static IQueryable<Campaign> Sort(this IQueryable<Campaign> campaigns,
+           string orderByQueryString)
+        {
+            if (string.IsNullOrWhiteSpace(orderByQueryString))
+                return campaigns.OrderBy(b => b.Id);
+
+            var orderQuery=OrderQueryBuilder
+                .CreateOrderQuery<Campaign>(orderByQueryString);
+
+            if (orderQuery is null)
+                return campaigns.OrderBy(c=>c.Id);
+
+            return campaigns.OrderBy(orderQuery);
+        }
+
+
+
     }
    
 }

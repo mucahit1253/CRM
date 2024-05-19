@@ -29,7 +29,7 @@ namespace Repositories.EfCore
            var campaigns= await FindAll(trackChanges)
                 .FilterCampaign(campaignParameters.StartDate, campaignParameters.EndDate)
                 .Search(campaignParameters.SearchTerm)
-                .OrderBy(c => c.Id)
+                .Sort(campaignParameters.OrderBy)
                 .ToListAsync();
             return PagedList<Campaign>
                 .ToPagedList(campaigns, campaignParameters.PageNumber, campaignParameters.PageSize);

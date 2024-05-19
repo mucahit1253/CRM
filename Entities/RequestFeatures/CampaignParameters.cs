@@ -8,6 +8,11 @@
         public bool ValidDateRange => EndDate > StartDate;
 
         public String? SearchTerm { get; set; }
+
+        public CampaignParameters()
+        {
+            OrderBy = "id";
+        }
     }
   
 }
