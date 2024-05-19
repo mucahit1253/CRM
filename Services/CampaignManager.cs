@@ -44,8 +44,11 @@ namespace Services
             await _manager.SaveAsync();
         }
 
-        public async Task<(IEnumerable<CampaignDto> campaigns,MetaData metaData)> GetAllCampaignAsync(CampaignParameters campaignParameters, bool trackChanhes)
+        public async Task<(IEnumerable<CampaignDto> campaigns,MetaData metaData)> GetAllCampaignAsync(CampaignParameters campaignParameters,
+            bool trackChanhes)
         {
+            if (!campaignParameters.ValidDateRange)
+                throw new DateTimeOutofRangeBadRequest();
             var campaignsWithMetaData=await _manager
                 .Campaign
                 .GetAllCampaingAsync(campaignParameters,trackChanhes);

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Repositories.EfCore
 {
-    public class CampaignRepository : RepositoriesBase<Campaign>, ICampaignRepository
+    public sealed class CampaignRepository : RepositoriesBase<Campaign>, ICampaignRepository
     {
         public CampaignRepository(RepositoryContext context) : base(context)
         {
@@ -26,8 +26,9 @@ namespace Repositories.EfCore
             bool trackChanges)
         {
            var campaigns= await FindAll(trackChanges)
-            .OrderBy(c => c.Id)
-            .ToListAsync();
+                .FilterCampaign(campaignParameters.StartDate, campaignParameters.EndDate)
+                .OrderBy(c => c.Id)
+                .ToListAsync();
             return PagedList<Campaign>
                 .ToPagedList(campaigns, campaignParameters.PageNumber, campaignParameters.PageSize);
         }
