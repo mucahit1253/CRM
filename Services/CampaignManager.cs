@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Entities.DataTransferObjects;
 using Entities.Exceptions;
+using Entities.LinkModels;
 using Entities.Models;
 using Entities.RequestFeatures;
 using Repositories.Contracts;
@@ -9,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,13 +21,14 @@ namespace Services
         private readonly IRepositoryManager _manager;
         private readonly ILoggerService _logger;
         private readonly IMapper _mapper;
-        private readonly IDataShaper<CampaignDto> _shaper;
-        public CampaignManager(IRepositoryManager manager, ILoggerService logger, IMapper mapper, IDataShaper<CampaignDto> shaper)
+        private readonly ICampaignLinks _campaignLinks;
+
+        public CampaignManager(IRepositoryManager manager, ILoggerService logger, IMapper mapper, ICampaignLinks campaignLinks)
         {
             _manager = manager;
             _logger = logger;
             _mapper = mapper;
-            _shaper = shaper;
+            _campaignLinks = campaignLinks;
         }
 
 
@@ -47,18 +50,22 @@ namespace Services
             await _manager.SaveAsync();
         }
 
-        public async Task<(IEnumerable<ExpandoObject> campaigns,MetaData metaData)> GetAllCampaignAsync(CampaignParameters campaignParameters,
+        public async Task<(LinkResponse linkResponse,MetaData metaData)>
+            GetAllCampaignAsync(LinkParameters linkParameters,
             bool trackChanhes)
         {
-            if (!campaignParameters.ValidDateRange)
+            if (!linkParameters.CampaignParameters.ValidDateRange)
                 throw new DateTimeOutofRangeBadRequest();
             var campaignsWithMetaData=await _manager
                 .Campaign
-                .GetAllCampaingAsync(campaignParameters,trackChanhes);
+                .GetAllCampaingAsync(linkParameters.CampaignParameters ,trackChanhes);
             var campaignsDto=_mapper.Map<IEnumerable<CampaignDto>>(campaignsWithMetaData);
 
-            var shapedData = _shaper.ShapeData(campaignsDto, campaignParameters.Fields);
-            return (campaigns:shapedData,metaData:campaignsWithMetaData.MetaData);
+            var links= _campaignLinks.TryGenerateLinks(campaignsDto,
+               linkParameters.CampaignParameters.Fields,
+               linkParameters.HttpContext);
+
+            return (linkResponse:links,metaData:campaignsWithMetaData.MetaData);
         }
 
         public async Task<CampaignDto>GetOneCampaignByIdAsync(int id, bool trackChanhes)

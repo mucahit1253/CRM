@@ -13,13 +13,14 @@ namespace Services
     public class ServiceManager : IServiceManager
     {
         private readonly Lazy<ICampaignService> _campaignService;
+
         public ServiceManager(IRepositoryManager repositoryManager,
             ILoggerService logger,
             IMapper mapper,
-            IDataShaper<CampaignDto> Shaper)
+            ICampaignLinks campaignLinks)
         {
             _campaignService = new Lazy<ICampaignService>(() => 
-            new CampaignManager(repositoryManager,logger,mapper,Shaper));
+            new CampaignManager(repositoryManager, logger, mapper,campaignLinks));
         }
         public ICampaignService CampaignService => _campaignService.Value;
     }

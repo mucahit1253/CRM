@@ -1,4 +1,5 @@
 ﻿using Entities.DataTransferObjects;
+using Entities.LinkModels;
 using Entities.Models;
 using Entities.RequestFeatures;
 using System;
@@ -12,7 +13,7 @@ namespace Services.Contracts
 {
     public interface ICampaignService
     {
-        Task<(IEnumerable<ExpandoObject>campaigns,MetaData metaData)> GetAllCampaignAsync(CampaignParameters campaignParameters, bool trackChanhes);
+        Task<(LinkResponse linkResponse, MetaData metaData)> GetAllCampaignAsync(LinkParameters linkParameters, bool trackChanhes);
         Task<CampaignDto> GetOneCampaignByIdAsync(int id, bool trackChanhes);
         Task<CampaignDto> CreateOneCampaignAsync(CampaignDtoForInsertion campaign);
         Task UpdateOneCampaignAsync(int id, CampaignDtoForUpdate campaignDto, bool trackChanges);

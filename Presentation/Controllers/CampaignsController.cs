@@ -30,16 +30,25 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
+        [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
         public async Task <IActionResult> GetAllCampaignsAsync([FromQuery]CampaignParameters campaignParameters)
         {
-            
-            var pageResult =await _manager.
+            var linkParameters = new LinkParameters()
+            {
+                CampaignParameters = campaignParameters,
+                HttpContext = HttpContext
+            };
+
+
+            var result =await _manager.
                 CampaignService.
-                GetAllCampaignAsync(campaignParameters, false);
+                GetAllCampaignAsync(linkParameters, false);
 
-            Response.Headers.Add("X-Pagination",JsonSerializer.Serialize(pageResult.metaData));
+            Response.Headers.Add("X-Pagination",JsonSerializer.Serialize(result.metaData));
 
-                return Ok(pageResult.campaigns);
+            return result.linkResponse.HasLinks ?
+                Ok(result.linkResponse.LinkedEntities) :
+                Ok(result.linkResponse.ShapedEntities);
             
            
         }
