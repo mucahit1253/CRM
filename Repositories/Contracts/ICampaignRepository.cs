@@ -16,5 +16,6 @@ namespace Repositories.Contracts
         void CreateOneCampaign(Campaign campaign);
         void UpdateOneCampaign(Campaign campaign);
         void DeleteOneCampaign(Campaign campaign);
+        Task<List<Campaign>> GetAllCampaignAsync(bool trackChanges);
     }
 }

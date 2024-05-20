@@ -68,6 +68,12 @@ namespace Services
             return (linkResponse:links,metaData:campaignsWithMetaData.MetaData);
         }
 
+        public async Task<List<Campaign>> GetAllCampaignAsync(bool trackChanhes)
+        {
+            var campaign = await _manager.Campaign.GetAllCampaignAsync(trackChanhes);
+            return campaign;
+        }
+
         public async Task<CampaignDto>GetOneCampaignByIdAsync(int id, bool trackChanhes)
         {
             var campaign = await GetOneCampaignByIdAndCheckExists(id, trackChanhes);

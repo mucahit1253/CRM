@@ -22,6 +22,12 @@ namespace Repositories.EfCore
 
         public void DeleteOneCampaign(Campaign campaign) => Delete(campaign);
 
+        public async Task<List<Campaign>> GetAllCampaignAsync(bool trackChanges)
+        {
+           return await FindAll(trackChanges)
+                .OrderBy(c=>c.Id)
+                .ToListAsync();
+        }
 
         public async Task<PagedList<Campaign>> GetAllCampaingAsync(CampaignParameters campaignParameters,
             bool trackChanges)

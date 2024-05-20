@@ -21,6 +21,6 @@ namespace Services.Contracts
         Task<(CampaignDtoForUpdate campaignDtoForUpdate,Campaign campaign)>  GetOneCampaignForPatchAsync(int id, bool trackChanges);
 
         Task SaveChangesForPatchAsync(CampaignDtoForUpdate campaignDtoForUpdate, Campaign campaign);
-
+        Task<List<Campaign>> GetAllCampaignAsync(bool trackChanhes);
     }
 }
