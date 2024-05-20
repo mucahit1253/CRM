@@ -20,6 +20,7 @@ namespace Presentation.Controllers
     [ServiceFilter(typeof(LogFilterAttribute))]
     [ApiController]
     [Route("api/Campaigns")]
+    //[ResponseCache(CacheProfileName="5mins")]
     public class CampaignsController : ControllerBase
     {
         private readonly IServiceManager _manager;
@@ -31,6 +32,7 @@ namespace Presentation.Controllers
         [HttpHead]
         [HttpGet(Name = "GetAllCampaignsAsync")]
         [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
+        //[ResponseCache(Duration =60)]
         public async Task <IActionResult> GetAllCampaignsAsync([FromQuery]CampaignParameters campaignParameters)
         {
             var linkParameters = new LinkParameters()
