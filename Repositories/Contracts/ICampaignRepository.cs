@@ -1,4 +1,5 @@
 ﻿using Entities.Models;
+using Entities.RequestFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,12 @@ namespace Repositories.Contracts
 {
     public interface ICampaignRepository :IRepositoriesBase<Campaign>
     {
-        IQueryable<Campaign> GetAllCampaing(bool trackChanges);
-        Campaign GetOneCampaingById(int id, bool trackChanges);
+        Task<PagedList<Campaign>> GetAllCampaingAsync(CampaignParameters campaignParameters, bool trackChanges);
+        Task<Campaign> GetOneCampaingByIdAsync(int id, bool trackChanges);
 
         void CreateOneCampaign(Campaign campaign);
         void UpdateOneCampaign(Campaign campaign);
         void DeleteOneCampaign(Campaign campaign);
+        Task<List<Campaign>> GetAllCampaignAsync(bool trackChanges);
     }
 }
