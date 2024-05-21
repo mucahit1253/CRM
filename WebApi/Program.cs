@@ -56,6 +56,10 @@ builder.Services.AddMemoryCache();
 builder.Services.ConfigureRateLimitingOptions();
 builder.Services.AddHttpContextAccessor();
 
+builder.Services.AddAuthentication();
+builder.Services.ConfigureIdentity();
+
+
 var app = builder.Build();
 //hatalrý aldýk burada 
 var logger=app.Services.GetRequiredService<ILoggerService> ();
@@ -78,8 +82,11 @@ app.UseHttpsRedirection();
 app.UseIpRateLimiting();
 app.UseCors("CorsPolicy");
 app.UseResponseCaching();
-app.UseAuthorization();
 app.UseHttpCacheHeaders();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 
 app.MapControllers();
 

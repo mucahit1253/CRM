@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repositories.EfCore;
 
@@ -11,9 +12,11 @@ using Repositories.EfCore;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20240520185244_AddRolesToDatabese")]
+    partial class AddRolesToDatabese
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,9 +88,6 @@ namespace WebApi.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -177,25 +177,25 @@ namespace WebApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "22fae463-d2a2-4e4f-acaa-346b7d132978",
+                            Id = "d68197ba-20ca-47b3-b030-9be74dc63aad",
                             Name = "Userf",
                             NormalizedName = "USERF"
                         },
                         new
                         {
-                            Id = "abf0de01-54fa-4613-8cab-59232aa99c65",
+                            Id = "ac7bc5ba-b58f-4ba4-88a3-bcc104376811",
                             Name = "Editor",
                             NormalizedName = "EDITOR"
                         },
                         new
                         {
-                            Id = "ca91db35-836b-409f-a0ad-38fad27b62a7",
+                            Id = "a1cf8943-a286-4916-b8d8-09c76a6a7f23",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "27d8db69-1666-408f-9bbc-74df2311e668",
+                            Id = "1c09619c-126e-48d2-a786-de5773b68034",
                             Name = "Personel",
                             NormalizedName = "PERSONEL"
                         });
