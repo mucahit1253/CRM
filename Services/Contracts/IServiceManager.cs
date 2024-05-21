@@ -9,5 +9,6 @@ namespace Services.Contracts
     public interface IServiceManager
     {
         ICampaignService CampaignService { get; }
+        IAuthenticationService AuthenticationService { get; }
     }
 }
