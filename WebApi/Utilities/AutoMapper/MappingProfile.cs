@@ -11,6 +11,7 @@ namespace WebApi.Utilities.AutoMapper
             CreateMap<CampaignDtoForUpdate, Campaign>().ReverseMap();
             CreateMap<Campaign, CampaignDto>();
             CreateMap<CampaignDtoForInsertion, Campaign>();
+            CreateMap<UserForRegistrationDto, User>();
 
         }
     }

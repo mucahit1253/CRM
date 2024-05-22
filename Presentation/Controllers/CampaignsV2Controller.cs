@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace Presentation.Controllers
 {
-    //[ApiVersion("2.0")]
+    //[ApiVersion("2.0", Deprecated = true)]
     [ApiController]
     [Route("api/Campaigns")]
+    [ApiExplorerSettings(GroupName = "v2")]
     public class CampaignsV2Controller:ControllerBase
     {
         private readonly IServiceManager _manager;
