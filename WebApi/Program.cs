@@ -55,6 +55,10 @@ builder.Services.ConfigureHttpCacheHeaders();
 builder.Services.AddMemoryCache();
 builder.Services.ConfigureRateLimitingOptions();
 builder.Services.AddHttpContextAccessor();
+builder.Services.ConfigureIdentity();
+builder.Services.ConfigureJWT(builder.Configuration);
+
+
 
 var app = builder.Build();
 //hatalrý aldýk burada 
@@ -78,8 +82,11 @@ app.UseHttpsRedirection();
 app.UseIpRateLimiting();
 app.UseCors("CorsPolicy");
 app.UseResponseCaching();
-app.UseAuthorization();
 app.UseHttpCacheHeaders();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 
 app.MapControllers();
 

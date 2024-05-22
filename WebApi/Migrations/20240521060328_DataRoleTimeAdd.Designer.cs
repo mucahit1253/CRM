@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repositories.EfCore;
 
@@ -11,9 +12,11 @@ using Repositories.EfCore;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20240521060328_DataRoleTimeAdd")]
+    partial class DataRoleTimeAdd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,12 +128,6 @@ namespace WebApi.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("RefreshToken")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("RefreshTokenExpiryTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -183,25 +180,25 @@ namespace WebApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "471e8b34-aef0-498f-86b8-2b1ef551500a",
+                            Id = "22fae463-d2a2-4e4f-acaa-346b7d132978",
                             Name = "Userf",
                             NormalizedName = "USERF"
                         },
                         new
                         {
-                            Id = "ed8f7ad5-904d-46ea-88cf-7a7616fd0b36",
+                            Id = "abf0de01-54fa-4613-8cab-59232aa99c65",
                             Name = "Editor",
                             NormalizedName = "EDITOR"
                         },
                         new
                         {
-                            Id = "5ccd648c-fb7f-474c-bf7f-d84c672038aa",
+                            Id = "ca91db35-836b-409f-a0ad-38fad27b62a7",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "69bc1a59-963a-4611-9f1e-0e0e4c83df58",
+                            Id = "27d8db69-1666-408f-9bbc-74df2311e668",
                             Name = "Personel",
                             NormalizedName = "PERSONEL"
                         });
