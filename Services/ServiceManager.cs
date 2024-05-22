@@ -29,7 +29,7 @@ namespace Services
             new CampaignManager(repositoryManager, logger, mapper,campaignLinks));
 
             _authencationService = new Lazy<IAuthenticationService>(() =>
-           new AuthenticationManager(userManager, mapper, logger,configuration));
+           new AuthenticationManager(logger,mapper,userManager,configuration));
         }
         public ICampaignService CampaignService => _campaignService.Value;
 
