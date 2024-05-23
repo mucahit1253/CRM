@@ -9,6 +9,7 @@ namespace Repositories.Contracts
     public interface IRepositoryManager
     {
         ICampaignRepository Campaign { get; }
+        IProductRepository Product { get; }
         Task SaveAsync();
     }
 }

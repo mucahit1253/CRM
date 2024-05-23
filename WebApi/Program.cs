@@ -46,8 +46,11 @@ builder.Services.ConfigureActionFilters();
 
 builder.Services.ConfigureCors();
 builder.Services.ConfigureDataShaper();
+builder.Services.ConfigureDataShaperp();
 builder.Services.AddCustomMediaTypes();
 builder.Services.AddScoped<ICampaignLinks, CampaignLinks>();
+builder.Services.AddScoped<IProductLinks, ProductLinks>();
+
 builder.Services.ConfigureVersioning();
 builder.Services.ConfigureResponseCaching();
 builder.Services.ConfigureHttpCacheHeaders();

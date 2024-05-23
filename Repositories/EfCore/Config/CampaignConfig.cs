@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Repositories.EfCore.Config
 {
-    internal class CampaignConfig : IEntityTypeConfiguration<Campaign>
+    public class CampaignConfig : IEntityTypeConfiguration<Campaign>
 
     {
         public void Configure(EntityTypeBuilder<Campaign> builder)

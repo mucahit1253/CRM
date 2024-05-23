@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using Entities.DataTransferObjects.ProductDto;
 
 namespace WebApi.Extensions
 {
@@ -58,6 +59,10 @@ namespace WebApi.Extensions
         public static void ConfigureDataShaper(this IServiceCollection services)
         {
             services.AddScoped<IDataShaper<CampaignDto>, DataShaper<CampaignDto>>();
+        }
+        public static void ConfigureDataShaperp(this IServiceCollection services)
+        {
+            services.AddScoped<IDataShaper<ProductDto>, DataShaper<ProductDto>>();
         }
 
         public static void AddCustomMediaTypes(this IServiceCollection services)

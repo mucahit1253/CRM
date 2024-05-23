@@ -15,6 +15,7 @@ namespace Repositories.EfCore
 
         }
         public DbSet<Campaign> Campaigns { get; set; }
+        public DbSet <Product> Products{ get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
