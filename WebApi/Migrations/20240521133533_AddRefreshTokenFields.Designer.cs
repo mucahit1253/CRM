@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repositories.EfCore;
 
@@ -11,9 +12,11 @@ using Repositories.EfCore;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20240521133533_AddRefreshTokenFields")]
+    partial class AddRefreshTokenFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,46 +74,6 @@ namespace WebApi.Migrations
                             EndDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             StartDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Kanpanya3"
-                        });
-                });
-
-            modelBuilder.Entity("Entities.Models.Product", b =>
-                {
-                    b.Property<int>("ProductId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"));
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ProductId");
-
-                    b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            ProductId = 1,
-                            Price = 100m,
-                            ProductName = "Ürün1"
-                        },
-                        new
-                        {
-                            ProductId = 2,
-                            Price = 200m,
-                            ProductName = "Ürün2"
-                        },
-                        new
-                        {
-                            ProductId = 3,
-                            Price = 300m,
-                            ProductName = "Ürün3"
                         });
                 });
 
@@ -223,25 +186,25 @@ namespace WebApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6e4c6518-9e36-480a-b31a-81325ab99ff6",
+                            Id = "471e8b34-aef0-498f-86b8-2b1ef551500a",
                             Name = "Userf",
                             NormalizedName = "USERF"
                         },
                         new
                         {
-                            Id = "1f8f12dd-d441-4de2-aac3-e2388d17f6a9",
+                            Id = "ed8f7ad5-904d-46ea-88cf-7a7616fd0b36",
                             Name = "Editor",
                             NormalizedName = "EDITOR"
                         },
                         new
                         {
-                            Id = "967cc832-228c-4731-b82b-49c338fd81aa",
+                            Id = "5ccd648c-fb7f-474c-bf7f-d84c672038aa",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "3c322d87-2249-4d2d-8cc2-2f5fb8636c21",
+                            Id = "69bc1a59-963a-4611-9f1e-0e0e4c83df58",
                             Name = "Personel",
                             NormalizedName = "PERSONEL"
                         });

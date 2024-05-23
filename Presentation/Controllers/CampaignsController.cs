@@ -2,6 +2,7 @@
 using Entities.Exceptions;
 using Entities.Models;
 using Entities.RequestFeatures;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.ActionFilters;
@@ -16,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Presentation.Controllers
 {
-    //[ApiVersion("1.0")]
+    [ApiExplorerSettings(GroupName = "v1")]
     [ServiceFilter(typeof(LogFilterAttribute))]
     [ApiController]
     [Route("api/Campaigns")]
@@ -29,6 +30,7 @@ namespace Presentation.Controllers
         {
             _manager = manager;
         }
+        [Authorize(Roles = "Admin,Editor,Personel")]
         [HttpHead]
         [HttpGet(Name = "GetAllCampaignsAsync")]
         [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
@@ -54,6 +56,7 @@ namespace Presentation.Controllers
             
            
         }
+        [Authorize(Roles = "Admin,Editor,Personel")]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetOneCampaignAsync([FromRoute(Name = "id")] int id)
         {
@@ -66,7 +69,7 @@ namespace Presentation.Controllers
 
         }
         [ServiceFilter(typeof(ValidationFilterAttribute))]
-
+        [Authorize(Roles = "Editor,Admin")]
         [HttpPost(Name = "CreateOneCampaignAsync")]
         public async Task<IActionResult> CreateOneCampaignAsync([FromBody] CampaignDtoForInsertion campaignDto)
         {
@@ -82,6 +85,8 @@ namespace Presentation.Controllers
                 
             
         }
+
+        [Authorize(Roles = "Editor,Admin")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateOneCampaignAsync([FromRoute(Name = "id")] int id,
@@ -95,6 +100,8 @@ namespace Presentation.Controllers
           
 
         }
+        
+        [Authorize(Roles = "Editor,Admin")]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteOneCampaignAsync([FromRoute(Name = "id")] int id)
         {
@@ -104,6 +111,7 @@ namespace Presentation.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Editor,Admin")]
         [HttpPatch("{id:int}")]
         public async Task <IActionResult> PartiallUpdateOneCampaignAsync([FromRoute(Name = "id")] int id,
               [FromBody] JsonPatchDocument<CampaignDtoForUpdate> campaignPatch)
@@ -123,7 +131,9 @@ namespace Presentation.Controllers
             return NoContent();
            
         }
-
+       
+        
+        [Authorize(Roles = "Editor,Admin,Personel")]
         [HttpOptions]
         public IActionResult GetCampaignsOptions()
         {

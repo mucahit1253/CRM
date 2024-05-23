@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Entities.DataTransferObjects;
+using Entities.DataTransferObjects.ProductDto;
 using Entities.Models;
 
 namespace WebApi.Utilities.AutoMapper
@@ -11,6 +12,12 @@ namespace WebApi.Utilities.AutoMapper
             CreateMap<CampaignDtoForUpdate, Campaign>().ReverseMap();
             CreateMap<Campaign, CampaignDto>();
             CreateMap<CampaignDtoForInsertion, Campaign>();
+           
+
+            CreateMap<ProductDtoForUpdate, Product>().ReverseMap();
+            CreateMap<Product, ProductDto>();
+            CreateMap<ProductDtoForInsertion, Product>();
+            CreateMap<UserForRegistrationDto, User>();
 
         }
     }

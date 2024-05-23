@@ -33,7 +33,7 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.ConfigureSwagger();
 
 builder.Services.ConfigureSqlContext(builder.Configuration);
 builder.Services.ConfigureRepositoryManager();
@@ -46,8 +46,11 @@ builder.Services.ConfigureActionFilters();
 
 builder.Services.ConfigureCors();
 builder.Services.ConfigureDataShaper();
+builder.Services.ConfigureDataShaperp();
 builder.Services.AddCustomMediaTypes();
 builder.Services.AddScoped<ICampaignLinks, CampaignLinks>();
+builder.Services.AddScoped<IProductLinks, ProductLinks>();
+
 builder.Services.ConfigureVersioning();
 builder.Services.ConfigureResponseCaching();
 builder.Services.ConfigureHttpCacheHeaders();
@@ -55,6 +58,10 @@ builder.Services.ConfigureHttpCacheHeaders();
 builder.Services.AddMemoryCache();
 builder.Services.ConfigureRateLimitingOptions();
 builder.Services.AddHttpContextAccessor();
+builder.Services.ConfigureIdentity();
+builder.Services.ConfigureJWT(builder.Configuration);
+
+
 
 var app = builder.Build();
 //hatalrý aldýk burada 
@@ -65,7 +72,11 @@ app.ConfigureExceptionHandler(logger);
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(s =>
+    {
+        s.SwaggerEndpoint("/swagger/v1/swagger.json", "CRM Proje v1");
+        s.SwaggerEndpoint("/swagger/v2/swagger.json", "CRM Proje v2");
+    });
 }
 //burasýda hata ilgili
 if (app.Environment.IsProduction())
@@ -78,8 +89,11 @@ app.UseHttpsRedirection();
 app.UseIpRateLimiting();
 app.UseCors("CorsPolicy");
 app.UseResponseCaching();
-app.UseAuthorization();
 app.UseHttpCacheHeaders();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 
 app.MapControllers();
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repositories.EfCore;
 
@@ -11,9 +12,11 @@ using Repositories.EfCore;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20240520185244_AddRolesToDatabese")]
+    partial class AddRolesToDatabese
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,46 +77,6 @@ namespace WebApi.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Entities.Models.Product", b =>
-                {
-                    b.Property<int>("ProductId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"));
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ProductId");
-
-                    b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            ProductId = 1,
-                            Price = 100m,
-                            ProductName = "Ürün1"
-                        },
-                        new
-                        {
-                            ProductId = 2,
-                            Price = 200m,
-                            ProductName = "Ürün2"
-                        },
-                        new
-                        {
-                            ProductId = 3,
-                            Price = 300m,
-                            ProductName = "Ürün3"
-                        });
-                });
-
             modelBuilder.Entity("Entities.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -125,9 +88,6 @@ namespace WebApi.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -164,12 +124,6 @@ namespace WebApi.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("RefreshToken")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("RefreshTokenExpiryTime")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -223,25 +177,25 @@ namespace WebApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6e4c6518-9e36-480a-b31a-81325ab99ff6",
+                            Id = "d68197ba-20ca-47b3-b030-9be74dc63aad",
                             Name = "Userf",
                             NormalizedName = "USERF"
                         },
                         new
                         {
-                            Id = "1f8f12dd-d441-4de2-aac3-e2388d17f6a9",
+                            Id = "ac7bc5ba-b58f-4ba4-88a3-bcc104376811",
                             Name = "Editor",
                             NormalizedName = "EDITOR"
                         },
                         new
                         {
-                            Id = "967cc832-228c-4731-b82b-49c338fd81aa",
+                            Id = "a1cf8943-a286-4916-b8d8-09c76a6a7f23",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "3c322d87-2249-4d2d-8cc2-2f5fb8636c21",
+                            Id = "1c09619c-126e-48d2-a786-de5773b68034",
                             Name = "Personel",
                             NormalizedName = "PERSONEL"
                         });
